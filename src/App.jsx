@@ -12,6 +12,9 @@ class App extends Component {
     };
     this.addTask = this.addTask.bind(this);
     this.deleteTask = this.deleteTask.bind(this);
+    this.editTask = this.editTask.bind(this);
+    this.toggleEdit = this.toggleEdit.bind(this);
+    this.completeTask = this.completeTask.bind(this);
   }
 
   addTask(task) {
@@ -19,13 +22,38 @@ class App extends Component {
     var newTask = {
       content: task.content,
       priority: task.priority,
-      isBeingEdited: false
+      editMode: false,
+      completed: false,
     };
     this.setState({
       taskList: taskList.concat([
         newTask
       ])
     });
+  }
+
+  toggleEdit(index) {
+    let list = this.state.taskList;
+    list[index].editMode = !list[index].editMode;
+    this.setState({ taskList: list });
+  }
+
+  editTask(index, newTask) {
+    let taskList = this.state.taskList;
+    taskList.splice(index, 1, newTask);
+    this.setState({
+      taskList: taskList
+    });
+  }
+
+  completeTask(task) {
+    let taskList = this.state.taskList;
+    let index = taskList.indexOf(task.content);
+    completedTasks.push(taskList[index]);
+    taskList[0].completed = !taskList[0].completed;
+    this.setState({
+      taskList: taskList
+    })
   }
 
   deleteTask(content) {
@@ -50,7 +78,7 @@ class App extends Component {
         <p style={{ color: 'white' }}>Track all of the things </p><hr />
         <div className='row'>
           <div className='col-md-4'><AdditionManager addTask={this.addTask}></AdditionManager></div>
-          <div className='col-md-8'><ViewManager taskList={this.state.taskList} deleteTask={this.deleteTask} /></div>
+          <div className='col-md-8'><ViewManager taskList={this.state.taskList} deleteTask={this.deleteTask} editTask={this.editTask} toggleEdit={this.toggleEdit} completeTask={this.completeTask} /></div>
         </div>
       </div>
     );

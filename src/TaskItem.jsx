@@ -22,7 +22,7 @@ import Octicon, { Trashcan, Pencil } from '@githubprimer/octicons-react';
 // }
 
 function TaskItem(props) {
-  var color = props.priority === '1' ? 'alert alert-danger d-flex  flex-row' : (props.priority === '2' ? 'alert alert-warning d-flex flex-row' : 'alert alert-success d-flex flex-row');
+  var color = props.priority === '1' ? 'alert alert-danger d-flex  flex-row mb-0 pb-0' : (props.priority === '2' ? 'alert alert-warning d-flex flex-row mb-0 pb-0' : 'alert alert-success d-flex flex-row mb-0 pb-0');
   // if (props.isBeingEdited === true) {
   //   return (
 
@@ -30,7 +30,7 @@ function TaskItem(props) {
   // }
   return (
     <div className={color} >
-      <input type='checkbox' value={props.content} />
+      <input type='checkbox' />
       {props.content}
       <a className='btn ml-auto' >
         <Octicon icon={Pencil} />

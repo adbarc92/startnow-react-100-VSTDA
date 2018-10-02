@@ -1,23 +1,11 @@
 import React, { Component } from 'react';
-import TaskItem from './TaskItem.jsx';
-
-// handleDelete(key)
-// handleComplete(key): add complete prop to task elem
-// handleEdit(key)
-// Add edit prop to task elem
-// add Key prop to task obj
+import TaskItem from './TaskComp.jsx';
 
 class ViewManager extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      taskList: [],
-      completedTasks: []
-    }
     this.renderTasks = this.renderTasks.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
-    // this.handleEdit = this.handleEdit.bind(this);
-    // this.handleComplete = this.handleComplete.bind(this);
   }
 
   renderTasks() {
@@ -26,11 +14,17 @@ class ViewManager extends Component {
       taskList.map((elem, i) => {
         return (
           <TaskItem
+            editMode={elem.editMode}
             className='no-margin no-padding'
             delete={this.handleDelete}
             priority={elem.priority}
             content={elem.content}
+            editTask={this.props.editTask}
+            toggleEdit={this.props.toggleEdit}
+            toggleComplete={this.props.toggleComplete}
+            completed={elem.completed}
             key={i}
+            index={i}
           />
         )
       }))
@@ -42,14 +36,13 @@ class ViewManager extends Component {
 
   render() {
     var taskList = this.props.taskList;
-    console.log(taskList.length);
     console.log('renderTask:', this.renderTasks);
 
     if (taskList.length === 0) {
       return (
         <div className='card no-margin no-padding'>
           <div className='card-header px-2'>View Tasks</div>
-          <div className='alert alert-primary no-padding no-margin' role='alert'>
+          <div className='alert alert-primary mb-0 pb-0' role='alert'>
             <p className='pl-1'><strong>Welcome to Very Simple To-Do App!</strong>
               <small>Get started now by adding a new task on the left.</small></p>
           </div>
@@ -61,7 +54,7 @@ class ViewManager extends Component {
       <div className='card'>
         <div className='card-header px-2'>View Tasks</div>
         <div className='card-body no-margin no-padding'>
-          <div>{this.renderTasks()}</div>
+          <ul className='list-group'>{this.renderTasks()}</ul>
         </div>
       </div>
     )

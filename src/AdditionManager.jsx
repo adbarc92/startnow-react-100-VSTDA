@@ -37,8 +37,8 @@ class AdditionManager extends Component {
           <textarea className='form-control' name='content' value={this.state.content} onChange={this.handleChange}></textarea>
 
           <label className='px-2'><strong>How much of a priority is this?</strong></label>
-          <select name='priority' value={this.state.priority} onChange={this.handleChange} className='form-control'>
-            <option value={this.state.priority} disabled>Select a Priority</option>
+          <select name='priority' value={this.state.priority} onChange={this.handleChange} className='form-control' placeholder='Select a Priority'>
+            <option disabled>Select a Priority</option>
             <option value='1'>High</option>
             <option value='2'>Moderate</option>
             <option value='3'>Low</option>
