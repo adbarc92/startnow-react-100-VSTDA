@@ -22,9 +22,9 @@ class ViewManager extends Component {
             editTask={this.props.editTask}
             toggleEdit={this.props.toggleEdit}
             toggleComplete={this.props.toggleComplete}
-            completed={elem.completed}
             key={i}
             index={i}
+            completed={elem.completed}
           />
         )
       }))

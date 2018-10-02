@@ -14,7 +14,7 @@ class App extends Component {
     this.deleteTask = this.deleteTask.bind(this);
     this.editTask = this.editTask.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
-    this.completeTask = this.completeTask.bind(this);
+    this.toggleComplete = this.toggleComplete.bind(this);
   }
 
   addTask(task) {
@@ -46,14 +46,10 @@ class App extends Component {
     });
   }
 
-  completeTask(task) {
-    let taskList = this.state.taskList;
-    let index = taskList.indexOf(task.content);
-    completedTasks.push(taskList[index]);
-    taskList[0].completed = !taskList[0].completed;
-    this.setState({
-      taskList: taskList
-    })
+  toggleComplete(index) {
+    let list = this.state.taskList;
+    list[index].completed = !list[index].completed;
+    this.setState({ taskList: list });
   }
 
   deleteTask(content) {
@@ -78,7 +74,7 @@ class App extends Component {
         <p style={{ color: 'white' }}>Track all of the things </p><hr />
         <div className='row'>
           <div className='col-md-4'><AdditionManager addTask={this.addTask}></AdditionManager></div>
-          <div className='col-md-8'><ViewManager taskList={this.state.taskList} deleteTask={this.deleteTask} editTask={this.editTask} toggleEdit={this.toggleEdit} completeTask={this.completeTask} /></div>
+          <div className='col-md-8'><ViewManager taskList={this.state.taskList} deleteTask={this.deleteTask} editTask={this.editTask} toggleEdit={this.toggleEdit} toggleComplete={this.toggleComplete} /></div>
         </div>
       </div>
     );

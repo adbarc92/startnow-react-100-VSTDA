@@ -16,6 +16,7 @@ class TaskItem extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleEditBtn = this.handleEditBtn.bind(this);
     this.handleSaveBtn = this.handleSaveBtn.bind(this);
+    this.handleCheckbox = this.handleCheckbox.bind(this);
   }
 
   handleChange(e) {
@@ -39,6 +40,11 @@ class TaskItem extends Component {
     const index = this.state.index;
     this.props.editTask(index, newTask);
     this.props.toggleEdit(index);
+  }
+
+  handleCheckbox(e) {
+    let index = this.state.index;
+    this.props.toggleComplete(index);
   }
 
   getColor() {
@@ -67,7 +73,9 @@ class TaskItem extends Component {
 
     if (this.props.editMode) {
       return (
-        <div className={this.getColorEditMode()} >
+        <div className={this.getColorEditMode()} style={{
+          textDecoration: this.props.completed ? 'line-through' : 'none'
+        }} >
           <label className='p-2'><strong>Description</strong></label>
           <textarea className='form-control m-2' name='content' value={this.state.content} onChange={this.handleChange}></textarea>
           <label className='p-2'><strong>Priority</strong></label>
@@ -83,8 +91,10 @@ class TaskItem extends Component {
     }
 
     return (
-      <div className={this.getColor()} >
-        <input type='checkbox' />
+      <li className={this.getColor()} style={{
+        textDecoration: this.props.completed ? 'line-through' : 'none'
+      }} >
+        <input type='checkbox' onChange={this.handleCheckbox} />
         {this.props.content}
         <a className='btn ml-auto' onClick={this.handleEditBtn} >
           <Octicon icon={Pencil} />
@@ -92,7 +102,7 @@ class TaskItem extends Component {
         <a className='btn' onClick={this.props.delete}>
           <Octicon icon={Trashcan} />
         </a>
-      </div>
+      </li>
     );
   }
 }
