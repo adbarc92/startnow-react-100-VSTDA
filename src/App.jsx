@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import AdditionManager from './AdditionManager.jsx';
 import ViewManager from './ViewManager.jsx';
 
-// https://stackoverflow.com/questions/42315990/how-to-set-placeholder-for-dropdown-in-react-js
-
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       taskList: [],
-      completedTasks: []
+      completedTasks: [],
+      deletedTasks: []
     };
     this.addTask = this.addTask.bind(this);
+    this.deleteTask = this.deleteTask.bind(this);
   }
 
   addTask(task) {
@@ -28,10 +28,20 @@ class App extends Component {
     });
   }
 
-  handleEdit(task) {
+  deleteTask(content) {
+    let taskList = this.state.taskList;
+    let index = taskList.indexOf(content);
+    let deletedTasks = this.state.deletedTasks;
+    deletedTasks.push(taskList.splice(index, 1));
+    this.setState({
+      taskList: taskList,
+      deletedTasks: deletedTasks
+    });
   }
 
-  handleDelete(task) { }
+  // handleEdit(prevTask, alteredTask) {
+
+  // }
 
   render() {
     return (
@@ -40,7 +50,7 @@ class App extends Component {
         <p style={{ color: 'white' }}>Track all of the things </p><hr />
         <div className='row'>
           <div className='col-md-4'><AdditionManager addTask={this.addTask}></AdditionManager></div>
-          <div className='col-md-8'><ViewManager taskList={this.state.taskList} /></div>
+          <div className='col-md-8'><ViewManager taskList={this.state.taskList} deleteTask={this.deleteTask} /></div>
         </div>
       </div>
     );

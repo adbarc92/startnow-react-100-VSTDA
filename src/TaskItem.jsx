@@ -30,12 +30,12 @@ function TaskItem(props) {
   // }
   return (
     <div className={color} >
-      <input type='checkbox' />
+      <input type='checkbox' value={props.content} />
       {props.content}
       <a className='btn ml-auto' >
         <Octicon icon={Pencil} />
       </a>
-      <a className='btn'>
+      <a className='btn' onClick={props.delete}>
         <Octicon icon={Trashcan} />
       </a>
     </div>

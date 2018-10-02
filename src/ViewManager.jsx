@@ -5,6 +5,7 @@ import TaskItem from './TaskItem.jsx';
 // handleComplete(key): add complete prop to task elem
 // handleEdit(key)
 // Add edit prop to task elem
+// add Key prop to task obj
 
 class ViewManager extends Component {
   constructor(props) {
@@ -14,7 +15,7 @@ class ViewManager extends Component {
       completedTasks: []
     }
     this.renderTasks = this.renderTasks.bind(this);
-    // this.handleDelete = this.handleDelete.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     // this.handleEdit = this.handleEdit.bind(this);
     // this.handleComplete = this.handleComplete.bind(this);
   }
@@ -26,12 +27,17 @@ class ViewManager extends Component {
         return (
           <TaskItem
             className='no-margin no-padding'
+            delete={this.handleDelete}
             priority={elem.priority}
             content={elem.content}
             key={i}
           />
         )
       }))
+  }
+
+  handleDelete(e) {
+    this.props.deleteTask(e.target.content);
   }
 
   render() {
